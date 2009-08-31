@@ -74,7 +74,7 @@ _____________________________________________________________________
 5. Installation
 _____________________________________________________________________
 
-Simply upload the source files to a directory of your liking (prefrebly in its own directory):
+Simply upload the files to a directory of your liking (prefrebly in its own directory):
 
 You can rename index.php without any problems, but not index.inc.php.
 
@@ -130,7 +130,13 @@ compress_output:           whether to use gzip compression or not.
                            bit taxing on your server if you have any kind of
                            substantial traffic. It is also better to enable
                            output compression through php.ini than here.
-                           default: 0            
+                           default: 0      
+log_mode:                  for disable logging: 0
+                           logging in one file: 1
+                           logging in more files: 2
+                           If you set log_mode > 0 the directory logs/ 
+                           must be writable for the webserver!
+                           default: 0
 
 
 - $_flags:
@@ -166,6 +172,13 @@ If it evaluates to true, the user will not be allowed to access
 that URL.
 The first default entry contains the regular expression for private 
 networks which are not supposed to be shown on the Internet.
+
+
+- $_blacklist:
+__________
+
+This is an array with those IP adresses which are unable to use the 
+proxy.
 
 
 - $_hotlink_domains:

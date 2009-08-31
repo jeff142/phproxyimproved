@@ -42,6 +42,7 @@ $lang['error']['internal'] = 'Failed to connect to the specified host. '
                              .'Try connecting again and check if the address is correct.';
 $lang['error']['external'][1] = 'The URL you\'re attempting to access is blacklisted by this server. Please select another URL.';
 $lang['error']['external'][2] = 'The URL you entered is malformed. Please check whether you entered the correct URL or not.';
+$lang['error']['external'][3] = 'Sorry, you are blacklisted by the admin.';
 $lang['resource_error'] = 'Resource Error'; 
 $lang['error']['file_size'] = 'The file your are attempting to download is too large.<br />'
                               .'Maxiumum permissible file size is <b>%s MB</b><br />'
