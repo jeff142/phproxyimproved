@@ -67,6 +67,9 @@ switch ($data['category'])
                             case 2:
                                 $message = $lang['error']['external'][2];
                                 break;
+                            case 3:
+                                $message = $lang['error']['external'][3];
+                                break;
                         }
                         break;
                 }

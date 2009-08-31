@@ -42,6 +42,7 @@ $lang['error']['internal'] = 'Verbindung zum Host fehlgeschlagen. '
                              .'Versuche es erneut und pr&uuml;fe die Adresse auf Tippfehler.';
 $lang['error']['external'][1] = 'Die eingegebene Adresse ist von Server aus geblockt.';
 $lang['error']['external'][2] = 'Die eingegebene Adresse ist keine g&uuml;ltige URL.';
+$lang['error']['external'][3] = 'Sorry, aber du stehst auf der Blackliste des Proxys!';
 $lang['resource_error'] = 'Ressource-Fehler'; 
 $lang['error']['file_size'] = 'Die angeforderte Datei ist zu gro&szlig;.<br />'
                               .'Die maximale erlaubt Dateigr&ouml;&szlig;e ist <b>%s MB</b>.<br />'

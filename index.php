@@ -14,6 +14,7 @@ if(isset($_GET['lang']) && file_exists('language/'.$_GET['lang'].'.lang.php')){
 
 //
 // CONFIGURABLE OPTIONS
+// see README.txt
 //
 
 $_config            = array
@@ -25,7 +26,8 @@ $_config            = array
                         'max_file_size'            => -1,
                         'allow_hotlinking'         => 0,
                         'upon_hotlink'             => 1,
-                        'compress_output'          => 0
+                        'compress_output'          => 0,
+                        'log_mode'                 => 2
                     );
 $_flags             = array
                     (
@@ -70,6 +72,10 @@ $_labels            = array
 $_hosts             = array
                     (
                         '#^127\.|192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.|localhost#i'
+                    );
+$_blacklist         = array
+                    (
+                       /* '123.456.789.012' */
                     );
 $_hotlink_domains   = array();
 $_insert            = array();
@@ -300,7 +306,18 @@ function proxify_css_url($url)
 
     return $delim . preg_replace('#([\(\),\s\'"\\\])#', '\\$1', complete_url(trim(preg_replace('#\\\(.)#', '$1', trim($url, $delim))))) . $delim;
 }
-
+//
+// LOGS
+//
+function write_to_log($url, $responsecode){
+    global $_config;
+    if($_config['log_mode'] == 0) return false;
+    elseif($_config['log_mode'] == 1) $filename = 'logs/proxy.log';
+    elseif($_config['log_mode'] == 2) $filename = 'logs/proxy_'.date('Y-m-d').'.log';
+    $file = fopen($filename, 'a');
+    fwrite($file, $_SERVER['REMOTE_ADDR'].' '.$url.' '.$responsecode."\n");
+    fclose($file);
+}
 //
 // SET FLAGS
 //
@@ -442,10 +459,16 @@ if (isset($_GET[$_config['url_var_name']], $_POST[$_config['basic_auth_var_name'
     $_basic_auth_header = base64_encode($_POST['username'] . ':' . $_POST['password']);
 }
 
+// 
+// IP BLACKLISTING
+//
+if(in_array($_SERVER['REMOTE_ADDR'], $_blacklist)){
+   show_report(array('which' => 'index', 'category' => 'error', 'group' => 'url', 'type' => 'external', 'error' => 3));
+}
+
 //
 // SET URL
 //
-
 if (strpos($_url, '://') === false)
 {
     $_url = 'http://' . $_url;
@@ -688,7 +711,7 @@ do
     }
     
     sscanf(current($_response_keys), '%s %s', $_http_version, $_response_code);
-    
+    write_to_log($_url, $_response_code);
     if (isset($_response_headers['content-type']))
     {
         list($_content_type, ) = explode(';', str_replace(' ', '', strtolower($_response_headers['content-type'][0])), 2);

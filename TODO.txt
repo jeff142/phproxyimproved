@@ -6,7 +6,6 @@ Our ToDo:
     https://sourceforge.net/tracker/?group_id=110693&atid=657223
     - BAN IP
     - Youtube
-    - Log
     - Cookie mangment
 - Caching
 - Better testing of the "Top sites" (Alexa? http://alexa.com/topsites)
