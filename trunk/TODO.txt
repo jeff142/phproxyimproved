@@ -1,0 +1,34 @@
+########## PHProxy improved #########################################
+Our ToDo:
+- Support for multiple languages
+- Trying to fix these bugs: 
+    http://sourceforge.net/tracker/?group_id=110693&atid=657220
+    -
+- these requests:
+    https://sourceforge.net/tracker/?group_id=110693&atid=657223
+    - BAN IP
+    - Youtube
+    - Log
+    - Cookie mangment
+- Better testing of the "Top sites" (Alexa? http://alexa.com/topsites)
+- Frames and iframes shouldn't include the URL form
+
+########## PHProxy ##################################################
+Original ToDo from Abdullah Ari:
+- Cookie managment
+- JavaScript support
+- Support for external proxies
+- Frames and iframes shouldn't include the URL form
+- Caching options
+- More URL encoding methods
+- More browsing options
+- Support HTTP resuming
+- Support HTTP 1.1
+- Support more response headers appropriately
+- Better "hosts" control
+- Improve URL proxification
+- Inspect gzip compression furthermore
+- Look into proxification of XML files
+- Support for multiple languages
+- IDN support
+- FTP support
