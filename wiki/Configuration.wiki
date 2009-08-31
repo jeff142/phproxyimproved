@@ -13,3 +13,30 @@ All these Variables are available at the beginning of index.php
 || upon_hotlink || what to do if a website hotlinks through your proxy. Possible values: - 1: show the URL form (homepage) - 2: issue a HTTP 404 Not Found error - any web address which the user will be redirected to (e.g. goatse pic) default: 1 ||
 || compress_output || whether to use gzip compression or not. This may or may not work depending on whether your PHP installation has Zlib loaded, and whether the user's browser supports gzip content encoding. Turn this on if you're worried about bandwidth. This might be a  bit taxing on your server if you have any kind of substantial traffic. It is also better to enable output compression through php.ini than here. default: 0     ||
 || log_mode || for disable logging: 0 logging in one file: 1 logging in more files: 2 If you set log_mode > 0 the directory logs/  must be writable for the webserver! default: 0 ||
+
+= $_flags =
+This array contains the default values for the browsing options which are explained in section 7.
+
+= $_frozen_flags =
+When a flag is frozen, it is no longer shown in the URL forms, and the user won't be able to change its value. A frozen flag will always assume its value given in $_flags. This is useful for forcing a specific URL encoding, or forcing the mini URL form to always be there for instance.
+
+0 is for not frozen. 1 is for frozen. default: all are unfrozen.
+
+= $_labels =
+The labels on flags. Depraced since multi-language support.
+= $_hosts =
+Each entry in this array is a seperate piece of regular expression code that is matched against the host part of the currently browsed URL. If it evaluates to true, the user will not be allowed to access that URL.
+
+The first default entry contains the regular expression for private networks which are not supposed to be shown on the Internet.
+
+= $_blacklist =
+This is an array with those IP adresses which are unable to use the proxy.
+
+= $_hotlink_domains =
+This array holds entries of domain names which are allowed to hotlink through your proxy when allow_hotlinking is 0.
+
+To allow "example.com" and "example2.com" to hotlink:
+
+$_hotlink_domains = array('example.com', 'example2.com');
+
+You don't need to include the "www" part as it is automatically accounted for. Your website's domain name is also automatically included in this array.
