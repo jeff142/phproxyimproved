@@ -27,7 +27,7 @@ $_config            = array
                         'allow_hotlinking'         => 0,
                         'upon_hotlink'             => 1,
                         'compress_output'          => 0,
-                        'log_mode'                 => 2
+                        'log_mode'                 => 0
                     );
 $_flags             = array
                     (
