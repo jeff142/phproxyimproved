@@ -1,15 +1,14 @@
 ########## PHProxy improved #########################################
 Our ToDo:
-- Support for multiple languages
 - Trying to fix these bugs: 
     http://sourceforge.net/tracker/?group_id=110693&atid=657220
-    -
 - these requests:
     https://sourceforge.net/tracker/?group_id=110693&atid=657223
     - BAN IP
     - Youtube
     - Log
     - Cookie mangment
+- Caching
 - Better testing of the "Top sites" (Alexa? http://alexa.com/topsites)
 - Frames and iframes shouldn't include the URL form
 

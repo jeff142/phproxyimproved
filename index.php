@@ -1,28 +1,16 @@
 <?php
-
-/*
-   +-----------------+------------------------------------------------------------+
-   |  Script         | PHProxy                                                    |
-   |  Author         | Abdullah Arif                                              |
-   |  Last Modified  | 5:27 PM 1/20/2007                                          |
-   +-----------------+------------------------------------------------------------+
-   |  This program is free software; you can redistribute it and/or               |
-   |  modify it under the terms of the GNU General Public License                 |
-   |  as published by the Free Software Foundation; either version 2              |
-   |  of the License, or (at your option) any later version.                      |
-   |                                                                              |
-   |  This program is distributed in the hope that it will be useful,             |
-   |  but WITHOUT ANY WARRANTY; without even the implied warranty of              |
-   |  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               |
-   |  GNU General Public License for more details.                                |
-   |                                                                              |
-   |  You should have received a copy of the GNU General Public License           |
-   |  along with this program; if not, write to the Free Software                 |
-   |  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. |
-   +------------------------------------------------------------------------------+
-*/
-
 error_reporting(E_ALL);
+
+//
+// LANGUAGE INCLUDE
+//
+
+if(isset($_GET['lang']) && file_exists('language/'.$_GET['lang'].'.lang.php')){
+    setcookie('lang', $_GET['lang'], (time()+3600*24*30));
+    include('language/'.substr($_GET['lang'],0,2).'.lang.php');
+}elseif(isset($_COOKIE['lang']) && file_exists('language/'.$_COOKIE['lang'].'.lang.php')){
+    include('language/'.substr($_COOKIE['lang'],0,2).'.lang.php');
+}else include('language/en.lang.php');
 
 //
 // CONFIGURABLE OPTIONS
@@ -42,7 +30,7 @@ $_config            = array
 $_flags             = array
                     (
                         'include_form'    => 1, 
-                        'remove_scripts'  => 1,
+                        'remove_scripts'  => 0,
                         'accept_cookies'  => 1,
                         'show_images'     => 1,
                         'show_referer'    => 1,
@@ -67,16 +55,16 @@ $_frozen_flags      = array
                     );                    
 $_labels            = array
                     (
-                        'include_form'    => array('Include Form', 'Include mini URL-form on every page'), 
-                        'remove_scripts'  => array('Remove Scripts', 'Remove client-side scripting (i.e JavaScript)'), 
-                        'accept_cookies'  => array('Accept Cookies', 'Allow cookies to be stored'), 
-                        'show_images'     => array('Show Images', 'Show images on browsed pages'), 
-                        'show_referer'    => array('Show Referer', 'Show actual referring Website'), 
-                        'rotate13'        => array('Rotate13', 'Use ROT13 encoding on the address'), 
-                        'base64_encode'   => array('Base64', 'Use base64 encodng on the address'), 
-                        'strip_meta'      => array('Strip Meta', 'Strip meta information tags from pages'), 
-                        'strip_title'     => array('Strip Title', 'Strip page title'), 
-                        'session_cookies' => array('Session Cookies', 'Store cookies for this session only') 
+                        'include_form'    => array($lang['options']['include_form']['short'], $lang['options']['include_form']['long']), 
+                        'remove_scripts'  => array($lang['options']['remove_scripts']['short'], $lang['options']['remove_scripts']['long']), 
+                        'accept_cookies'  => array($lang['options']['accept_cookies']['short'], $lang['options']['accept_cookies']['long']), 
+                        'show_images'     => array($lang['options']['show_images']['short'], $lang['options']['show_images']['long']), 
+                        'show_referer'    => array($lang['options']['show_referer']['short'], $lang['options']['show_referer']['long']), 
+                        'rotate13'        => array($lang['options']['rotate13']['short'], $lang['options']['rotate13']['long']), 
+                        'base64_encode'   => array($lang['options']['base64_encode']['short'], $lang['options']['base64_encode']['long']), 
+                        'strip_meta'      => array($lang['options']['strip_meta']['short'], $lang['options']['strip_meta']['long']), 
+                        'strip_title'     => array($lang['options']['strip_title']['short'], $lang['options']['strip_title']['long']), 
+                        'session_cookies' => array($lang['options']['session_cookies']['short'], $lang['options']['session_cookies']['long']) 
                     );
                     
 $_hosts             = array
@@ -99,7 +87,7 @@ $_system            = array
                         'stripslashes' => get_magic_quotes_gpc()
                     );
 $_proxify           = array('text/html' => 1, 'application/xml+xhtml' => 1, 'application/xhtml+xml' => 1, 'text/css' => 1);
-$_version           = '0.5b2';
+$_version           = '0.5b3';
 $_http_host         = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost');
 $_script_url        = 'http' . ((isset($_ENV['HTTPS']) && $_ENV['HTTPS'] == 'on') || $_SERVER['SERVER_PORT'] == 443 ? 's' : '') . '://' . $_http_host . ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443 ? ':' . $_SERVER['SERVER_PORT'] : '') . $_SERVER['PHP_SELF'];
 $_script_base       = substr($_script_url, 0, strrpos($_script_url, '/')+1);
@@ -132,6 +120,7 @@ $_response_body     = '';
 
 function show_report($data)
 {    
+    global $lang;
     include $data['which'] . '.inc.php';
     exit(0);
 }
@@ -1141,9 +1130,9 @@ else
     {
         $_url_form      = '<div style="width:100%;margin:0;text-align:center;border-bottom:1px solid #725554;color:#000000;background-color:#F2FDF3;font-size:12px;font-weight:bold;font-family:Bitstream Vera Sans,arial,sans-serif;padding:4px;">'
                         . '<form method="post" action="' . $_script_url . '">'
-                        . ' <label for="____' . $_config['url_var_name'] . '"><a href="' . $_url . '">Address</a>:</label> <input id="____' . $_config['url_var_name'] . '" type="text" size="80" name="' . $_config['url_var_name'] . '" value="' . $_url . '" />'
-                        . ' <input type="submit" name="go" value="Go" />'
-                        . ' [go: <a href="' . $_script_url . '?' . $_config['url_var_name'] . '=' . encode_url($_url_parts['prev_dir']) .' ">up one dir</a>, <a href="' . $_script_base . '">main page</a>]'
+                        . ' <label for="____' . $_config['url_var_name'] . '"><a href="' . $_url . '">'.$lang['address'].'</a>:</label> <input id="____' . $_config['url_var_name'] . '" type="text" size="80" name="' . $_config['url_var_name'] . '" value="' . $_url . '" />'
+                        . ' <input type="submit" name="go" value="'.$lang['go'].'" />'
+                        . ' ['.$lang['go'].': <a href="' . $_script_url . '?' . $_config['url_var_name'] . '=' . encode_url($_url_parts['prev_dir']) .' ">'.$lang['uponedir'].'</a>, <a href="' . $_script_base . '">'.$lang['mainpage'].'</a>]'
                         . '<br /><hr />';
 
         foreach ($_flags as $flag_name => $flag_value)

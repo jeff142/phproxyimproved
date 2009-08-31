@@ -18,9 +18,19 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 <body onload="document.getElementById('address_box').focus()">
 <div id="container">
   <h1 id="title">PHProxy</h1>
+  <div id="languages">
+<?php
+$langs = array();
+foreach(glob('language/*.lang.php') as $file){
+    $lng = substr($file, 9, 2);
+    $langs[] = '<a href="?lang='.$lng.'"><img src="language/'.$lng.'.png" alt="'.$lng.'" /></a>';
+}
+echo join(" ", $langs);
+?>
+  </div>
   <ul id="navigation">
-    <li><a href="<?php echo $GLOBALS['_script_base'] ?>">URL Form</a></li>
-    <li><a href="javascript:alert('cookie managment has not been implemented yet')">Manage Cookies</a></li>
+    <li><a href="<?php echo $GLOBALS['_script_base'] ?>"><?php echo $lang['navi']['url']; ?></a></li>
+    <li><a href="javascript:alert('cookie managment has not been implemented yet')"><?php echo $lang['navi']['cookies']; ?></a></li>
   </ul>
 <?php
 
@@ -29,10 +39,10 @@ switch ($data['category'])
     case 'auth':
 ?>
   <div id="auth"><p>
-  <b>Enter your username and password for "<?php echo htmlspecialchars($data['realm']) ?>" on <?php echo $GLOBALS['_url_parts']['host'] ?></b>
+  <b><?php printf($lang['auth'], htmlspecialchars($data['realm']), $GLOBALS['_url_parts']['host']); ?></b>
   <form method="post" action="">
     <input type="hidden" name="<?php echo $GLOBALS['_config']['basic_auth_var_name'] ?>" value="<?php echo base64_encode($data['realm']) ?>" />
-    <label>Username <input type="text" name="username" value="" /></label> <label>Password <input type="password" name="password" value="" /></label> <input type="submit" value="Login" />
+    <label><?php echo $lang['auth_user']; ?> <input type="text" name="username" value="" /></label> <label><?php echo $lang['auth_pass']; ?> <input type="password" name="password" value="" /></label> <input type="submit" value="<?php echo $lang['auth_login']; ?>" />
   </form></p></div>
 <?php
         break;
@@ -42,51 +52,46 @@ switch ($data['category'])
         switch ($data['group'])
         {
             case 'url':
-                echo '<b>URL Error (' . $data['error'] . ')</b>: ';
+                echo '<b>'.$lang['url_error'].' (' . $data['error'] . ')</b>: ';
                 switch ($data['type'])
                 {
                     case 'internal':
-                        $message = 'Failed to connect to the specified host. '
-                                 . 'Possible problems are that the server was not found, the connection timed out, or the connection refused by the host. '
-                                 . 'Try connecting again and check if the address is correct.';
+                        $message = $lang['error']['internal'];
                         break;
                     case 'external':
                         switch ($data['error'])
                         {
                             case 1:
-                                $message = 'The URL you\'re attempting to access is blacklisted by this server. Please select another URL.';
+                                $message = $lang['error']['external'][1];
                                 break;
                             case 2:
-                                $message = 'The URL you entered is malformed. Please check whether you entered the correct URL or not.';
+                                $message = $lang['error']['external'][2];
                                 break;
                         }
                         break;
                 }
                 break;
             case 'resource':
-                echo '<b>Resource Error:</b> ';
+                echo '<b>'.$lang['resource_error'].':</b> ';
                 switch ($data['type'])
                 {
                     case 'file_size':
-                        $message = 'The file your are attempting to download is too large.<br />'
-                                 . 'Maxiumum permissible file size is <b>' . number_format($GLOBALS['_config']['max_file_size']/1048576, 2) . ' MB</b><br />'
-                                 . 'Requested file size is <b>' . number_format($GLOBALS['_content_length']/1048576, 2) . ' MB</b>';
+                        $message = sprintf($lang['error']['file_size'], number_format($GLOBALS['_config']['max_file_size']/1048576, 2), number_format($GLOBALS['_content_length']/1048576, 2));
                         break;
                     case 'hotlinking':
-                        $message = 'It appears that you are trying to access a resource through this proxy from a remote Website.<br />'
-                                 . 'For security reasons, please use the form below to do so.';
+                        $message = $lang['error']['hotlinking'];
                         break;
                 }
                 break;
         }
         
-        echo 'An error has occured while trying to browse through the proxy. <br />' . $message . '</p></div>';
+        echo $lang['error_msg'].'<br />' . $message . '</p></div>';
         break;
 }
 ?>
   <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
     <ul id="form">
-      <li id="address_bar"><label>Web Address <input id="address_box" type="text" name="<?php echo $GLOBALS['_config']['url_var_name'] ?>" value="<?php echo isset($GLOBALS['_url']) ? htmlspecialchars($GLOBALS['_url']) : '' ?>" onfocus="this.select()" /></label> <input id="go" type="submit" value="Go" /></li>
+      <li id="address_bar"><label><?php echo $lang['address']; ?>: <input id="address_box" type="text" name="<?php echo $GLOBALS['_config']['url_var_name'] ?>" value="<?php echo isset($GLOBALS['_url']) ? htmlspecialchars($GLOBALS['_url']) : '' ?>" onfocus="this.select()" /></label> <input id="go" type="submit" value="<?php echo $lang['go']; ?>" /></li>
       <?php
       
       foreach ($GLOBALS['_flags'] as $flag_name => $flag_value)
@@ -101,7 +106,7 @@ switch ($data['category'])
   </form>
   <!-- The least you could do is leave this link back as it is. This software is provided for free and I ask nothing in return except that you leave this link intact
        You're more likely to recieve support should you require some if I see a link back in your installation than if not -->
-  <div id="footer"><a href="http://whitefyre.com/poxy/">PHProxy</a> <?php echo $GLOBALS['_version'] ?></div>
+  <div id="footer"><?php echo $lang['footer'];  echo $GLOBALS['_version'] ?></div>
 </div>
 </body>
 </html>
