@@ -1,0 +1,15 @@
+#summary How to configure PHProxy improved
+#labels Featured,Phase-Deploy
+
+All these Variables are available at the beginning of index.php
+= $`_`config Array = 
+|| *key* || *description* ||
+|| url_var_name || name of the variable the contains the url to be passed to the script. default: 'q' ||
+|| flags_var_name || name of the variables the contains the flags to be passed to the script. default: 'hl' ||
+|| get_form_name || name of the GET forms in case they were passed through the proxy. default: '____pgfa' ||
+|| basic_auth_var_name || name of the variable when prompted for Basic authentication. default:  '____pbavn' ||
+|| max_file_size || maximum file size in BYTES that can be downloaded through the proxy. Use -1 for unlimited. default: -1 ||
+|| allow_hotlinking || whether to allow hotlinking or not. default is not unless in $_hotlink_domains. default:0 ||
+|| upon_hotlink || what to do if a website hotlinks through your proxy. Possible values: - 1: show the URL form (homepage) - 2: issue a HTTP 404 Not Found error - any web address which the user will be redirected to (e.g. goatse pic) default: 1 ||
+|| compress_output || whether to use gzip compression or not. This may or may not work depending on whether your PHP installation has Zlib loaded, and whether the user's browser supports gzip content encoding. Turn this on if you're worried about bandwidth. This might be a  bit taxing on your server if you have any kind of substantial traffic. It is also better to enable output compression through php.ini than here. default: 0     ||
+|| log_mode || for disable logging: 0 logging in one file: 1 logging in more files: 2 If you set log_mode > 0 the directory logs/  must be writable for the webserver! default: 0 ||
