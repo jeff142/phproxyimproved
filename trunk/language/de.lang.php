@@ -21,6 +21,8 @@ $lang['options']['strip_title']['short'] = 'Entferne Titel';
 $lang['options']['strip_title']['long'] = 'Entferne den Seitentitel';
 $lang['options']['session_cookies']['short'] = 'Session Cookies';
 $lang['options']['session_cookies']['long'] = 'Speichere Cookies nur f&uuml;r diese Session';
+$lang['options']['agent']['short'] = 'Browser verstecken';
+$lang['options']['agent']['long'] = 'Verstecke deinen echten Browser/User-Agent';
 
 $lang['address'] = 'Adresse';
 $lang['uponedir'] = 'ein Verzeichnis aufw&auml;rts';

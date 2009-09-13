@@ -27,7 +27,8 @@ $_config            = array
                         'allow_hotlinking'         => 0,
                         'upon_hotlink'             => 1,
                         'compress_output'          => 0,
-                        'log_mode'                 => 0
+                        'log_mode'                 => 0,
+                        'random_agent'             => 1
                     );
 $_flags             = array
                     (
@@ -40,7 +41,8 @@ $_flags             = array
                         'base64_encode'   => 1,
                         'strip_meta'      => 1,
                         'strip_title'     => 0,
-                        'session_cookies' => 1
+                        'session_cookies' => 1,
+                        'agent'           => 1
                     );
 $_frozen_flags      = array
                     (
@@ -53,7 +55,8 @@ $_frozen_flags      = array
                         'base64_encode'   => 0,
                         'strip_meta'      => 0,
                         'strip_title'     => 0,
-                        'session_cookies' => 0
+                        'session_cookies' => 0,
+                        'agent'           => 0
                     );                    
 $_labels            = array
                     (
@@ -66,7 +69,8 @@ $_labels            = array
                         'base64_encode'   => array($lang['options']['base64_encode']['short'], $lang['options']['base64_encode']['long']), 
                         'strip_meta'      => array($lang['options']['strip_meta']['short'], $lang['options']['strip_meta']['long']), 
                         'strip_title'     => array($lang['options']['strip_title']['short'], $lang['options']['strip_title']['long']), 
-                        'session_cookies' => array($lang['options']['session_cookies']['short'], $lang['options']['session_cookies']['long']) 
+                        'session_cookies' => array($lang['options']['session_cookies']['short'], $lang['options']['session_cookies']['long']), 
+                        'agent'           => array($lang['options']['agent']['short'], $lang['options']['agent']['long']) 
                     );
                     
 $_hosts             = array
@@ -83,7 +87,19 @@ $_insert            = array();
 //
 // END CONFIGURABLE OPTIONS. The ride for you ends here. Close the file.
 //
-
+$_agents            = array
+                    (
+                        'Mozilla/5.0 (Windows; U; Windows NT 5.1; de-DE) AppleWebKit/531.9 (KHTML, like Gecko) Version/4.0.3 Safari/531.9.1',
+                        'Opera/9.80 (Windows NT 5.1; U; de) Presto/2.2.15 Version/10.00',
+                        'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.1) Gecko/20090624 Firefox/3.5 (.NET CLR 3.5.30729)',
+                        'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.19 (KHTML, like Gecko) Chrome/0.2.153.1 Safari/525.19',
+                        'Lynx/2.8.7dev.9 libwww-FM/2.14 SSL-MM/1.4.1',
+                        'Mozilla/5.0 (compatible; Konqueror/2.2.2; Linux 2.4.14-xfs; X11; i686)',
+                        'Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en-us) AppleWebKit/xxx.x (KHTML like Gecko) Safari/12x.x',
+                        'Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9b5) Gecko/2008032620 Firefox/3.0b5',
+                        'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9b5) Gecko/2008032619 Firefox/3.0b5'
+                        
+                    );
 $_iflags            = '';
 $_system            = array
                     (
@@ -561,7 +577,11 @@ do
 
     if (isset($_SERVER['HTTP_USER_AGENT']))
     {
-        $_request_headers .= 'User-Agent: ' . $_SERVER['HTTP_USER_AGENT'] . "\r\n";
+        if($_flags['agent']){
+            shuffle($_agents);
+            $_request_headers .= 'User-Agent: ' . $_agents[0] . "\r\n";
+        }else
+            $_request_headers .= 'User-Agent: ' . $_SERVER['HTTP_USER_AGENT'] . "\r\n";
     }
     if (isset($_SERVER['HTTP_ACCEPT']))
     {

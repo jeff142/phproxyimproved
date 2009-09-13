@@ -21,6 +21,8 @@ $lang['options']['strip_title']['short'] = 'Strip Title';
 $lang['options']['strip_title']['long'] = 'Strip page title';
 $lang['options']['session_cookies']['short'] = 'Session Cookies';
 $lang['options']['session_cookies']['long'] = 'Store cookies for this session only';
+$lang['options']['agent']['short'] = 'Hide Browser';
+$lang['options']['agent']['long'] = 'Hide your Browser/User-Agent';
 
 $lang['address'] = 'Address';
 $lang['uponedir'] = 'up one dir';
