@@ -4,19 +4,16 @@ Our ToDo:
     http://sourceforge.net/tracker/?group_id=110693&atid=657220
 - these requests:
     https://sourceforge.net/tracker/?group_id=110693&atid=657223
-    - BAN IP
     - Youtube
     - Cookie mangment
 - Caching
 - Better testing of the "Top sites" (Alexa? http://alexa.com/topsites)
-- Frames and iframes shouldn't include the URL form
 
 ########## PHProxy ##################################################
-Original ToDo from Abdullah Ari:
+From the Original ToDo from Abdullah Ari:
 - Cookie managment
 - JavaScript support
 - Support for external proxies
-- Frames and iframes shouldn't include the URL form
 - Caching options
 - More URL encoding methods
 - More browsing options
@@ -27,6 +24,5 @@ Original ToDo from Abdullah Ari:
 - Improve URL proxification
 - Inspect gzip compression furthermore
 - Look into proxification of XML files
-- Support for multiple languages
 - IDN support
 - FTP support
