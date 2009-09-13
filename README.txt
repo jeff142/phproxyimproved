@@ -229,6 +229,7 @@ Values can either be 1 (true) or 0 (false).
 | Strip Meta     | Strip meta HTML tags                             |
 | Strip Title    | Strip Website title                              |
 | Session Cookies| Store cookies for this current session only      |
+| Hide Browser   | The proxy sends a random user-agent              |
 +-------------------------------------------------------------------+
 
 * only one type of encoding will be used even if both are selected
