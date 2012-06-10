@@ -1,0 +1,84 @@
+<?php
+/*
+Author: Jeffery Schefke
+License : GNU General Public License
+phproxyimproved.com
+*/
+
+//Retrieve stock plugins and associated settings file
+include_once(PHPROXY_ROOT.'plugins/index.php');
+include_once(PHPROXY_ROOT.'plugins/include/settings.php');
+include('settings/youtube.settings.php');
+
+//Video limit counter
+if($showlimmit){
+session_start();
+ 
+	if(isset($_SESSION['count'])) {
+		$_SESSION['count']++;
+	} else {
+		$_SESSION['count'] = 1;
+
+	}
+	$count = '<h3>Bandwidth is expensive please limit your videos to '.$vlimmit.' you have viewed : '.$_SESSION['count'].'</h3>';
+} else {
+	$count = '';
+}
+
+//Obtain the FLV download link
+if (preg_match('/"url_encoded_fmt_stream_map": "([^\"]*)"/', $_response_body, $temp)) {
+	$url_encoded_fmt_stream_map_value = preg_replace('/\\\\u0026/', '&amp;', $temp[1]);
+	$url_encoded_fmt_stream_map_value = rawurldecode($url_encoded_fmt_stream_map_value);
+}
+
+//Pull the correct link for video stream
+if (!preg_match('/itag=34,url=(.*?)&amp;/', $url_encoded_fmt_stream_map_value, $temp)) {
+	$temp[1] = '';
+}
+	
+//Proxy video stream for player
+$flv = rawurlencode(complete_url($temp[1]));
+
+
+
+//Download link
+if($download) {
+	$flvdownload = complete_url($temp[1]);
+	$downloadhtml = '<h2><a href="'.$flvdownload.'">FLV Download</a></h2>';
+} else {
+	$downloadhtml = '';
+}
+
+//New video player HTML
+$youtubehtml = <<<OUT
+<div id="watch-video-container">
+    <div id="watch-video" >
+          <object type="application/x-shockwave-flash" data="plugins/include/player.swf" width="640" height="390">
+    <param name="movie" value="plugins/include/player.swf" />
+    <param name="allowFullScreen" value="true" />
+    <param name="FlashVars" value="flv={$flv}&amp;title={$title}&amp;width=640&amp;height=390&amp;autoload=1&amp;showvolume=1&amp;showtime=1&amp;showplayer=always&amp;showloading=always&amp;showfullscreen=1&amp;buffer={$buffer}&amp;ondoubleclick=fullscreen&amp;videobgcolor=808080&showiconplay=1" />
+</object>
+
+	$downloadhtml $count<br>
+		No Video? You must use Rot13 not Bace64
+
+		<!-- Begin watch-video-extra -->
+		<div id="watch-video-extra">
+		</div>
+		<!-- End watch-video-extra -->
+    </div>
+</div>
+<!-- Begin watch-main-container -->
+OUT;
+
+//Replace offical YouTube player with flvplayer
+$_response_body_edit = preg_replace('/<div id="watch-video-container">(.*?)<\/div>\s*<!-- begin watch-main-container -->/s',$youtubehtml, $_response_body, 1);
+// fix images
+$_response_body_edit = preg_replace('/<img[^>]*data-thumb=/s','<img src=',$_response_body_edit);
+
+//Removes the YouTube homepage AD
+if (preg_match('/<div id="ad_creative_1"(.*?)<\/div>\s*/s', $_response_body_edit)){
+$_response_body_edit = preg_replace('/<div id="ad_creative_1"(.*?)<\/div>\s*/s',$adspace, $_response_body_edit, 1);
+}
+
+?>

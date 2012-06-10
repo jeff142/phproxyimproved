@@ -1,0 +1,29 @@
+===Change Log===
+
+- May 17 2012
+Moved image.php to include
+Removed $_get replaced with strings.
+-- ToDo
+On/Off image
+
+- May 18 2012
+Fixed image hight
+Added on/off
+
+- May 24 2012
+Fixed html tags not haveing numbers.
+Made new installer
+-- ToDo
+Fix YouTube plugin
+
+==ToDo==
+
+82% This new Web Proxy System will be easier to manage then Glype (although Glype is easy already but there is space for improvement)
+50%  Easy adding of advertisement on different sections of the templates (had huge bugs)
+25%  Easy to add links/ads on proxified pages underneath address bar
+50% Comprehensive and detailed log if you wish (optional) to determine for example wihich IP (user) uses the most bandwidth
+100%  Implement Google Analytics (optional: add-on)
+0%  Block IPs: block IPs or IP ranges to your liking
+0%  Option to use Anti-Adblock System on your Web Proxy so users using Adblockers will have to disable them for your web proxy site
+0%  HideMe/Panic button
+90%  Automatic update of the Script (optional): On new releases you either get a message or you can choose to get it installed automatically

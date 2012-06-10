@@ -1,0 +1,155 @@
+A:link, A:visited , A:active, A:hover {
+    color: #9B9C83;
+    text-decoration:none;
+}
+
+#container {
+    margin: auto;
+    padding: 5px;
+    width: 700px;
+}
+
+#title {
+	font-size: 20px;
+    color: #990000;
+    margin: 0;
+	margin-bottom: 10px;
+}
+
+#google_translate_element {
+	float: right;
+	position: relative;
+	top: 4px;
+}
+
+#address_bar {
+    background: none repeat scroll 0 0 #000099;
+    clear: both;
+    padding: 10px;
+}
+
+#address_prefix {
+	width: 36px;
+	background: #E2E2E2;
+}
+
+#address_box {
+    width: 500px;
+}
+
+#address_bar .address_tabs {
+    border: 1px solid #FFFFFF;
+    color: #666666;
+    font-size: 16px;
+    padding: 4px;
+}
+
+#address_prefix, #address_box {
+	border: 1px solid #FFFFFF;
+	padding: 2px 0px;
+}
+
+#submit {
+    background-color: #FFFFFF;
+    font-weight: bold;
+    color: #000099;
+    border: 0 #FFFFFF solid;
+    padding: 2px 5px;
+}
+
+#error {
+    background-color: #FBE3E4;
+    width: 700px;
+    clear: both;
+	font-size: 14px;
+}
+
+#error p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+	padding-left: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#settings {
+	float: right;
+	position: relative;
+	top: -1px;
+}
+
+#options {
+	display: none;
+	border-bottom: 1px solid #999999;
+}
+
+#adsense {
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-bottom: 1px solid #999999;
+}
+
+#footer {
+	padding-top: 2px;
+    color: #9B9C83;
+    font-size: 13px;
+    text-align: right;
+}
+
+ul.address_tabs, ul.address_tabs li {
+    border: 0 none;
+    display: inline;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.address_tabs {
+    clear: both;
+}
+
+ul.address_tabs li a {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #333333;
+    float: left;
+    font-weight: bold;
+    margin-right: 1px;
+    padding: 8px;
+    text-decoration: none;
+    width: auto;
+}
+
+ul.address_tabs li.selected a {
+    background: none repeat scroll 0 0 #000099;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.option
+{
+    padding: 2px 0;
+    background-color: #EEEBEA;
+}
+
+ul#form {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul#form {
+    clear: both;
+}
+
+ul#form li {
+    width: 700px;
+}
+
+form {
+    margin: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #44352C;
+}
