@@ -1,7 +1,4 @@
-#summary How to Install PHProxyImproved
 #labels Featured,Phase-Deploy
-  * upload the files from the archive to a directory of your liking
-
 # How to install PHProxyImproved
 
 = Introduction =
