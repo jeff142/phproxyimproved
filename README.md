@@ -1,6 +1,7 @@
-==============================================
+=====================================
 NOTICE! READ ME
-==============================================
+=====================================
+
 This project was made up when i was in highschool learning php, It has a flaw in its security that could, assuming some one got the admin login allow code execution.
 This project is not recommended for current usage, or live sites due to this exploit, I have no intentions of fixing the problem. This project is dead.
 
